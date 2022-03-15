@@ -46,3 +46,6 @@ apt-show-versions -v | while read package; do
         package_version="$(echo "$package" | cut -d ' ' -f2)"
         echo "apt_versions{name=\"$package_name\",version=\"$package_version\"} 1"
 done
+
+echo '# TYPE kernel_version gauge'
+echo "kernel_version{version=\"$(uname -r)\"} 1"
