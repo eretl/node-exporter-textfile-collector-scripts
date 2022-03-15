@@ -40,9 +40,9 @@ else
   echo 'node_reboot_required 0'
 fi
 
-echo '# TYPE apt_versions summary'
+echo '# TYPE apt_versions gauge'
 apt-show-versions -v | while read package; do
         package_name="$(echo "$package" | cut -d ':' -f1)"
         package_version="$(echo "$package" | cut -d ' ' -f2)"
-        echo "apt_versions{name=\"$package_name\",version=\"$package_version\"}"
+        echo "apt_versions{name=\"$package_name\",version=\"$package_version\"} 1"
 done
