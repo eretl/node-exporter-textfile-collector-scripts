@@ -1,8 +1,9 @@
 #!/bin/bash
 #
-# Description: Expose metrics from apt updates.
+# Description: Expose metrics from apt updates and packages versions.
 #
 # Author: Ben Kochie <superq@gmail.com>
+# Edit: Lukas Eret
 
 upgrades="$(/usr/bin/apt-get --just-print dist-upgrade \
   | /usr/bin/awk -F'[()]' \
@@ -38,3 +39,10 @@ if [[ -f '/run/reboot-required' ]] ; then
 else
   echo 'node_reboot_required 0'
 fi
+
+echo '# TYPE apt_versions summary'
+apt-show-versions -v | while read package; do
+        package_name="$(echo "$package" | cut -d ':' -f1)"
+        package_version="$(echo "$package" | cut -d ' ' -f2)"
+        echo "apt_versions{name=\"$package_name\",version=\"$package_version\"}"
+done
