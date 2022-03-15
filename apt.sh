@@ -49,3 +49,6 @@ done
 
 echo '# TYPE kernel_version gauge'
 echo "kernel_version{version=\"$(uname -r)\"} 1"
+
+echo '# TYPE os_version gauge'
+echo "os_version{version=\"$(lsb_release -s -r)\", codename=\"$(lsb_release -s -c)\"} 1"
