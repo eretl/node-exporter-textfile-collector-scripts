@@ -1,3 +1,7 @@
+
+mkdir -p /etc/prometheus/collector
+5 3 * * * root /etc/prometheus/apt.sh | sponge /etc/prometheus/collector/apt.prom
+ARGS="--collector.textfile.directory='/etc/prometheus/collector'"
 # Text collector example scripts
 
 These scripts are examples to be used with the Node Exporter Textfile
