@@ -52,3 +52,13 @@ echo "kernel_version{version=\"$(uname -r)\"} 1"
 
 echo '# TYPE os_version gauge'
 echo "os_version{version=\"$(lsb_release -s -r)\", codename=\"$(lsb_release -s -c)\", distro=\"$(lsb_release -i -s)\"} 1"
+
+echo '# TYPE composer_version gauge'
+if ! command -v composer &> /dev/null
+then
+    echo "composer_version{} 0"
+    exit
+else
+    echo "composer_version{version=\"$(composer -V | cut -d " " -f2)\"} 1"
+fi
+
